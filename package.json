@@ -25,6 +25,7 @@
     "mocha": "~1.11.0",
     "should": "~1.2.2",
     "JSV": "~4.0.2",
-    "jscoverage": "~0.3.7"
+    "jscoverage": "~0.3.7",
+    "coveralls": "~2.0.13"
   }
 }
