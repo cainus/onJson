@@ -21,11 +21,14 @@
   ],
   "author": "Gregg Caines",
   "license": "BSD",
-  "dependencies": {
+  "devDependencies": {
     "mocha": "~1.11.0",
     "should": "~1.2.2",
-    "JSV": "~4.0.2",
     "jscoverage": "~0.3.7",
-    "coveralls": "~2.0.13"
+    "coveralls": "~2.0.13",
+    "mocha-lcov-reporter": "0.0.1"
+  },
+  "dependencies": {
+    "JSV": "~4.0.2"
   }
 }
