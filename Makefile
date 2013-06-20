@@ -6,14 +6,20 @@ lib-cov:
 	./node_modules/jscoverage/bin/jscoverage lib lib-cov
 
 test-cov:	lib-cov
-	echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
-	@ONJSON_COVERAGE=1 $(MAKE) test REPORTER=html-cov 1> coverage.html
-	rm -rf lib-cov
+	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
+		--require blanket \
+		--reporter html-cov 1> coverage.html
 
 test-coveralls:	lib-cov
 	$(MAKE) test REPORTER=spec
 	echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
 	@ONJSON_COVERAGE=1 $(MAKE) test REPORTER=mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js || true
 	rm -rf lib-cov
+
+coveralls:
+	$(MAKE) test REPORTER=spec
+	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
+		--require blanket \
+		--reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
 
 .PHONY: test

@@ -4,7 +4,10 @@
   "description": "a connect-compatible middleware for node.js that adds an onJson callback to the request object for retrieving json.",
   "main": "index.js",
   "scripts": {
-    "test": "make test-coveralls"
+    "test": "make coveralls",
+    "blanket": {
+      "pattern": "lib"
+    }
   },
   "maintainers": [
     "Gregg Caines <gregg@caines.ca> (http://caines.ca)"
@@ -26,7 +29,8 @@
     "should": "~1.2.2",
     "jscoverage": "~0.3.7",
     "coveralls": "~2.0.13",
-    "mocha-lcov-reporter": "0.0.1"
+    "mocha-lcov-reporter": "0.0.1",
+    "blanket": "1.1.5"
   },
   "dependencies": {
     "JSV": "~4.0.2"
