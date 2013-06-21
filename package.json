@@ -6,7 +6,7 @@
   "scripts": {
     "test": "make coveralls",
     "blanket": {
-      "pattern": "lib"
+      "pattern": "//^(?!.*node_modules.*$).*lib\//"
     }
   },
   "maintainers": [
