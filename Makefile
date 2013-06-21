@@ -5,7 +5,7 @@ test:
 lib-cov:
 	./node_modules/jscoverage/bin/jscoverage lib lib-cov
 
-test-cov:	lib-cov
+test-cov:
 	@NODE_ENV=test NODE_PATH=lib ./node_modules/.bin/mocha \
 		--require blanket \
 		--reporter html-cov 1> coverage.html
