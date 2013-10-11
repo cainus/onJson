@@ -1,12 +1,13 @@
 var should = require('should');
-var jbch = require('../index');
+var factory = require('../index');
 
 // TODO test bad schema, successful schema, json parse error
-describe("onJsonHelper", function(){
+describe("onJson", function(){
   it ("sets onJson on the object", function(done){
     var req = {};
     var res = {};
-    jbch(req, res, function(){
+    var middleware = factory(function(req, res, info){ throw "there shouldn't be an error!";});
+    middleware(req, res, function(){
       (typeof req.onJson).should.equal('function');
       done();
     });
@@ -14,7 +15,8 @@ describe("onJsonHelper", function(){
   it ("throws an error when called with 2+ params", function(done){
     var req = {};
     var res = {};
-    jbch(req, res, function(){
+    var middleware = factory(function(req, res, info){ throw "there shouldn't be an error!";});
+    middleware(req, res, function(){
       try {
         req.onJson({}, {}, function(err, obj){
           err.should.equal('some error');
@@ -35,7 +37,8 @@ describe("onJsonHelper", function(){
         }
       }
     };
-    jbch(req, res, function(){
+    var middleware = factory(function(req, res, info){ throw "there shouldn't be an error!";});
+    middleware(req, res, function(){
       req.onJson(function(err, obj){
         err.should.equal('some error');
         done();
@@ -52,7 +55,8 @@ describe("onJsonHelper", function(){
         }
       }
     };
-    jbch(req, res, function(){
+    var middleware = factory(function(req, res, info){ throw "there shouldn't be an error!";});
+    middleware(req, res, function(){
       req.onJson(function(err, obj){
         obj.should.eql({asdf:"asdf"});
         done();
@@ -60,6 +64,7 @@ describe("onJsonHelper", function(){
     });
   });
   it ("responds with an error if json doesn't parse", function(done){
+    var res = {};
     var req = {
       on : function(type, cb){
         switch(type){
@@ -68,16 +73,12 @@ describe("onJsonHelper", function(){
         }
       }
     };
-    var res = {
-              status : {
-                badRequest : function(message, detail){
-                  message.should.equal('invalid json.');
-                  detail.should.equal('{"age":37,}');
+    var middleware = factory(function(req, res, info){ 
+                  info.reason.should.equal('invalid json.');
+                  info.detail.should.equal('{"age":37,}');
                   done();
-                }
-              }
-             };
-    jbch(req, res, function(){
+    });
+    middleware(req, res, function(){
       req.onJson(function(err, obj){
         should.fail('should not get here');
       });
@@ -109,11 +110,10 @@ describe("onJsonHelper", function(){
         resumeWasCalled = true;
       }
     };
-    var res = {
-        status : {
-          badRequest : function(error){
-            error.reason.should.equal('json failed schema validation.');
-            error.errors[0].message.should.equal('Additional properties are not allowed');
+    var res = {};
+    var middleware = factory(function(req, res, info){ 
+            info.reason.should.equal('json failed schema validation.');
+            info.detail[0].message.should.equal('Additional properties are not allowed');
             // detail looks like this:
             // [ { uri: 'urn:uuid:167293d9-3c95-493d-826e-1bfd4146a8b9#',
             // schemaUri: 'urn:uuid:b7e07efd-fd80-4370-8206-9162f4c39cc9#',
@@ -122,10 +122,8 @@ describe("onJsonHelper", function(){
             // details: false } ]
             resumeWasCalled = true;
             done();
-          }
-        }
-    };
-    jbch(req, res, function(){
+    });
+    middleware(req, res, function(){
       req.onJson(schema, function(err, obj){
         should.fail('should not get here');
       });
@@ -151,11 +149,10 @@ describe("onJsonHelper", function(){
         }
       }
     };
-    var res = {
-        status : {
-          badRequest : function(error){
-            error.reason.should.equal('json failed schema validation.');
-            error.errors[0].details[0].should.equal('number');
+    var res = {};
+    var middleware = factory(function(req, res, info){ 
+            info.reason.should.equal('json failed schema validation.');
+            info.detail[0].details[0].should.equal('number');
             // detail looks like this:
             // [ { uri: 'urn:uuid:67ef53a9-1b09-48b1-b97d-fae313e4ee39#/age',
             // schemaUri: 'urn:uuid:51edca59-120a-4486-a961-0ee2aa5c276b#/properties/age',
@@ -163,10 +160,8 @@ describe("onJsonHelper", function(){
             // message: 'Instance is not a required type',
             // details: [ 'number' ] } ]
             done();
-          }
-        }
-    };
-    jbch(req, res, function(){
+    });
+    middleware(req, res, function(){
       req.onJson(schema, function(err, obj){
         should.fail('should not get here');
       });
