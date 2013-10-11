@@ -1,6 +1,6 @@
 {
   "name": "on-json",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a connect-compatible middleware for node.js that adds an onJson callback to the request object for retrieving json.",
   "main": "index.js",
   "scripts": {
