@@ -1,20 +1,13 @@
 {
   "name": "on-json",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a connect-compatible middleware for node.js that adds an onJson callback to the request object for retrieving json.",
   "main": "index.js",
   "scripts": {
-    "test": "make coveralls",
-    "blanket": {
-      "pattern": "//^(?!.*node_modules.*$).*lib//"
-    }
+    "test": "make coveralls"
   },
   "maintainers": [
-    {
-      "name": "Gregg Caines",
-      "email": "gregg@caines.ca",
-      "url": "http://caines.ca"
-    }
+    "Gregg Caines <gregg@caines.ca> (http://caines.ca)"
   ],
   "repository": {
     "type": "git",
@@ -26,27 +19,26 @@
     "connect",
     "validation"
   ],
-  "author": {
-    "name": "Gregg Caines"
-  },
+  "author": "Gregg Caines",
   "license": "BSD",
   "devDependencies": {
-    "mocha": "~1.11.0",
-    "should": "~1.2.2",
-    "jscoverage": "~0.3.7",
-    "coveralls": "~2.0.13",
+    "mocha": "1.11.0",
+    "should": "1.2.2",
+    "coveralls": "2.10.0",
     "mocha-lcov-reporter": "0.0.1",
-    "blanket": "1.1.5"
+    "istanbul": "0.2.7",
+    "connect": "2.14.4",
+    "hottap": "1.0.1",
+    "jshint": "2.5.0"
   },
   "dependencies": {
-    "JSV": "~4.0.2"
+    "JSV": "4.0.2"
   },
-  "readme": "onJson\n======\n\n[![Build\nStatus](https://secure.travis-ci.org/cainus/onJson.png?branch=master)](http://travis-ci.org/cainus/onJson)\n[![Coverage Status](https://coveralls.io/repos/cainus/onJson/badge.png?branch=master)](https://coveralls.io/r/cainus/onJson)\n[![NPM version](https://badge.fury.io/js/onJson.png)](http://badge.fury.io/js/)\n\na connect-compatible middleware for node.js that adds an onJson callback to the request object for retrieving json.\n",
-  "readmeFilename": "README.md",
-  "_id": "on-json@0.0.1",
-  "dist": {
-    "shasum": "2079715d95d54f93003f1be4a69a8ae389392c6a"
+  "bugs": {
+    "url": "https://github.com/cainus/onJson/issues"
   },
-  "_from": "on-json@0.0.1",
-  "_resolved": "https://registry.npmjs.org/on-json/-/on-json-0.0.1.tgz"
+  "homepage": "https://github.com/cainus/onJson",
+  "directories": {
+    "test": "test"
+  }
 }
