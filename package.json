@@ -4,7 +4,7 @@
   "description": "a connect-compatible middleware for node.js that adds an onJson callback to the request object for retrieving json.",
   "main": "index.js",
   "scripts": {
-    "test": "make coveralls"
+    "test": "make test-coveralls"
   },
   "maintainers": [
     "Gregg Caines <gregg@caines.ca> (http://caines.ca)"
